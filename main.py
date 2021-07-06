@@ -6,33 +6,26 @@ car_liters = 30
 car_liters_MAX = 80
 money = 5000
 
-# Пользовательский ввод
-fuel_type = ""
-liters = 0.0
-
 # Основная часть
 run = True
 while run:
     Screen()
-    automate = Automate(fuel_type, liters, money)
+    automate = Automate("", 0.0, money)
     for event in pg.event.get():
         pos = pg.mouse.get_pos()
         if event.type == pg.QUIT:
             run = False
+            pg.quit()
         if event.type == pg.MOUSEBUTTONDOWN:
             if button92.makeActive(pos):
-                fuel_type = button92.text
+                automate.fuel_type = button92.text
             if button95.makeActive(pos):
-                fuel_type = button95.text
+                automate.fuel_type = button95.text
             if button98.makeActive(pos):
-                fuel_type = button98.text
+                automate.fuel_type = button98.text
             if buttonPay.makeActive(pos):
-                if inputbox.text != "":
-                    automate.liters = float(inputbox.text)
-                result = automate.check(car_fuel_type, car_liters, car_liters_MAX)
-                text1.printValue(result)
-                inputbox.Clear()
-                automate.Clear()
+                print(automate.__dict__)
+                Pay(automate, inputbox, text_result, car_fuel_type, car_liters, car_liters_MAX)
             if buttonExit.makeActive(pos):
                 run = False
             inputbox.makeActive(pos)

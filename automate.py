@@ -86,7 +86,7 @@ class InputBox:
 
 
 class Automate:
-    def __init__(self, fuel_type, liters, money):
+    def __init__(self, fuel_type="", liters=0.0, money=0):
         self.fuel_type = fuel_type
         self.liters = liters
         self.money = money
@@ -94,11 +94,11 @@ class Automate:
     def check(self, car_fuel_type, car_liters, car_liters_MAX):
         if self.fuel_type == "":
             return "Select fuel type"
-        if (self.fuel_type != car_fuel_type):
+        if self.fuel_type != car_fuel_type:
             return "This fuel does not fit your car"
-        if (car_liters + float(self.liters) > car_liters_MAX):
+        if (car_liters + float(self.liters)) > car_liters_MAX:
             return "So many liters will not fit in your tank"
-        if ((car_liters * FUEL_INFO[car_fuel_type]) > self.money):
+        if (car_liters * FUEL_INFO[car_fuel_type]) > self.money:
             return "Not enough money to pay"
         else:
             return car_liters + float(self.liters) , self.money - (self.liters * FUEL_INFO[car_fuel_type])
@@ -110,12 +110,19 @@ class Automate:
 
 def Screen():
     screen.fill((255, 255, 255))
-    textbg.draw(screen)
-    text1.draw(screen)
+    bg.draw(screen)
+    text_result.draw(screen)
     for button in auto_list:
         button.draw(screen)
     pg.display.update()
 
+def Pay(automate: Automate, inputbox: InputBox, text: Text, car_fuel_type, car_liters, car_liters_MAX):
+    if inputbox.text != "":
+        automate.liters = float(inputbox.text)
+    result = automate.check(car_fuel_type, car_liters, car_liters_MAX)
+    text.printValue(result)
+    inputbox.Clear()
+    automate.Clear()
 
 button92 = Button(450, 10, 150, 100, "92")
 button95 = Button(625, 10, 150, 100, "95")
@@ -123,6 +130,6 @@ button98 = Button(800, 10, 150, 100, "98")
 inputbox = InputBox(450, 135, 500, 100)
 buttonPay = Button(700, 485, 250, 100, "Pay by card")
 buttonExit = Button(10, 690, 150, 100, "Exit")
-text1 = Text(450, 260, 500, 200)
-textbg = Text(425, 0, 550, 790)
+text_result = Text(450, 260, 500, 200)
+bg = Text(425, 0, 550, 790)
 auto_list = [button92, button95, button98, buttonPay, buttonExit, inputbox]
