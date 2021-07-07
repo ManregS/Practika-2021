@@ -120,7 +120,7 @@ def Screen():
     screen.fill((255, 255, 255))
     screen.blit(BACKGROUND, (370, 0))
     text_result.draw(screen)
-    text_fuel_info.draw(screen, False)
+    #text_fuel_info.draw(screen)
     for button in auto_list:
         if button in auto_list[:-1]:
             button.draw(screen, COLOR_BLACK)
@@ -143,6 +143,6 @@ inputbox = InputBox(485, 235, 430, 100)
 buttonPay = Button(665, 550, 250, 80, "Pay by card")
 buttonExit = Button(20, 700, 150, 80, "Exit")
 text_result = Text(485, 340, 430, 200)
-text_fuel_info = Text(1200, 10, 200, 200, str(FUEL_INFO))
+#text_fuel_info = Text(1050, 10, 350, 350, ["Fuel Info", ("92: " + str(FUEL_INFO["92"])), ("95: " + str(FUEL_INFO["95"])), ("98: " + str(FUEL_INFO["98"]))])
 #text_car_info = Text()
 auto_list = [button92, button95, button98, buttonPay, buttonExit, inputbox]
