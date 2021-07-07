@@ -36,6 +36,10 @@ class Text:
                         screen.blit(txt, (self.rect.x + 5, self.rect.y))
                 else:
                     screen.blit(txt, (self.rect.x + 5, self.rect.y + ((message[i - 1].get_height()) * i)))
+    
+    def Clear(self):
+        self.text = ""
+        self.txt_surface = FONT.render("", True, COLOR_BLACK)
 
 
 class Button:
@@ -50,8 +54,7 @@ class Button:
         if outline:
             pg.draw.rect(screen, outline, (self.rect.x - 2, self.rect.y - 2, self.rect.width + 4, self.rect.height + 4), 0)
         pg.draw.rect(screen, self.color, self.rect, 0)
-        screen.blit(self.txt_surface, (self.rect.x + (self.rect.w / 2 - self.txt_surface.get_width() / 2),
-                                       self.rect.y + (self.rect.h / 2 - self.txt_surface.get_height() / 2)))
+        screen.blit(self.txt_surface, (self.rect.x + (self.rect.w / 2 - self.txt_surface.get_width() / 2), self.rect.y + (self.rect.h / 2 - self.txt_surface.get_height() / 2)))
 
     def makeActive(self, pos):
         if self.rect.collidepoint(pos):
@@ -72,8 +75,7 @@ class InputBox:
         self.active = False
 
     def draw(self, screen):
-        screen.blit(self.txt_surface, (self.rect.x + (self.rect.w / 2 - self.txt_surface.get_width() / 2),
-                                       self.rect.y + (self.rect.h / 2 - self.txt_surface.get_height() / 2)))
+        screen.blit(self.txt_surface, (self.rect.x + (self.rect.w / 2 - self.txt_surface.get_width() / 2), self.rect.y + (self.rect.h / 2 - self.txt_surface.get_height() / 2)))
         pg.draw.rect(screen, self.color, self.rect, 2)
 
     def makeActive(self, pos):
@@ -116,11 +118,9 @@ class Automate:
         if (car_liters + float(self.liters)) > car_liters_MAX:
             return "So many liters will\nnot fit in your tank", 0
         if (car_liters * FUEL_INFO[car_fuel_type]) > self.money:
-            return "Not enough money to pay\n", 0
+            return "Not enough money\nto pay", 0
         else:
-            return "Payment passed\nCar tank: " + str(
-                car_liters + float(self.liters)) + " liters\nYour balance: " + str(
-                self.money - (self.liters * FUEL_INFO[car_fuel_type])), 1
+            return "Payment passed\nCar tank: " + str(car_liters + float(self.liters)) + " liters\nYour balance: " + str(self.money - (self.liters * FUEL_INFO[car_fuel_type])), 1
 
     def Clear(self):
         self.fuel_type = ""
@@ -128,8 +128,7 @@ class Automate:
 
 
 def Screen(car_fuel_type, car_liters, car_liters_MAX):
-    text_car_info.text = ("Car Info\n" + ("Fuel type: " + str(car_fuel_type)) + "\n" + (
-                "Tank: " + str(car_liters)) + " liters\n" + ("MAX: " + str(car_liters_MAX)) + " liters")
+    text_car_info.text = ("Car Info\n" + ("Fuel type: " + str(car_fuel_type)) + "\n" + ("Tank: " + str(car_liters)) + " liters\n" + ("MAX: " + str(car_liters_MAX)) + " liters")
     screen.fill((255, 255, 255))
     screen.blit(BACKGROUND, (370, 0))
     for text in text_list:
@@ -141,7 +140,6 @@ def Screen(car_fuel_type, car_liters, car_liters_MAX):
             el.draw(screen)
     pg.display.update()
 
-
 def Pay(automate: Automate, inputbox: InputBox, text: Text, car_fuel_type, car_liters, car_liters_MAX):
     click_pay = 0
     if inputbox.text != "":
@@ -150,9 +148,12 @@ def Pay(automate: Automate, inputbox: InputBox, text: Text, car_fuel_type, car_l
     text.text = result
     inputbox.Clear()
     automate.Clear()
-
     return click_pay
 
+def Exit(text: Text, pay: Button, exit: Button):
+    text.Clear()
+    pay.active = False
+    exit.active = False
 
 button92 = Button(485, 45, 126, 100, "92")
 button95 = Button(637, 45, 126, 100, "95")
@@ -161,8 +162,7 @@ inputbox = InputBox(485, 235, 430, 100)
 buttonPay = Button(665, 550, 250, 80, "Pay by card")
 buttonExit = Button(487, 550, 150, 80, "Exit")
 text_result = Text(485, 340, 430, 200)
-text_fuel_info = Text(1040, 10, 350, 250, (
-            "Fuel Info\n" + ("92: " + str(FUEL_INFO["92"])) + " rub\n" + ("95: " + str(FUEL_INFO["95"])) + " rub\n" + ("98: " + str(FUEL_INFO["98"])) + " rub"))
+text_fuel_info = Text(1040, 10, 350, 250, ("Fuel Info\n" + ("92: " + str(FUEL_INFO["92"])) + " rub\n" + ("95: " + str(FUEL_INFO["95"])) + " rub\n" + ("98: " + str(FUEL_INFO["98"])) + " rub"))
 text_car_info = Text(10, 10, 350, 250)
 el_list = [button92, button95, button98, buttonPay, buttonExit, inputbox]
 text_list = [text_result, text_fuel_info, text_car_info]

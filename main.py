@@ -247,6 +247,7 @@ def main():
                 if buttonPay.makeActive(pos):
                     click_pay += Pay(automate, inputbox, text_result, next_car.fuel, next_car.count_of_gasoline, next_car.max_gasoline)
                 if buttonExit.makeActive(pos):
+                    Exit(text_result, buttonPay , buttonExit)
                     run = False
                 inputbox.makeActive(pos)
             if event.type == pg.KEYDOWN:
@@ -257,7 +258,6 @@ def main():
     if click_pay == 0:
         run = False
     count_of_time = time.monotonic()
-    exit_button = Button(320, 80)
     while run:
 
         win.blit(bg, (0, 0))
@@ -283,7 +283,6 @@ def main():
     ''' 3-я часть: уезд машины с заправки '''
     run = True
     count_of_time = time.monotonic()
-    exit_button = Button(320, 80)
     while run:
 
         win.blit(bg, (0, 0))
