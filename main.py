@@ -247,7 +247,7 @@ def main():
                 if buttonPay.makeActive(pos):
                     click_pay += Pay(automate, inputbox, text_result, next_car)
                 if buttonExit.makeActive(pos):
-                    Exit(text_result, buttonPay , buttonExit)
+                    Exit(text_result, buttonPay, buttonExit)
                     run = False
                 inputbox.makeActive(pos)
             if event.type == pg.KEYDOWN:
