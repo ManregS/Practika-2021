@@ -231,7 +231,7 @@ def main():
     run = True
     click_pay = 0
     while run:
-        Screen(next_car.fuel, next_car.count_of_gasoline, next_car.max_gasoline)
+        Screen(next_car.fuel, next_car.count_of_gasoline, next_car.max_gasoline, next_car.count_of_money)
         for event in pg.event.get():
             pos = pg.mouse.get_pos()
             if event.type == pg.QUIT:
@@ -245,7 +245,7 @@ def main():
                 if button98.makeActive(pos):
                     automate.fuel_type = button98.text
                 if buttonPay.makeActive(pos):
-                    click_pay += Pay(automate, inputbox, text_result, next_car.fuel, next_car.count_of_gasoline, next_car.max_gasoline)
+                    click_pay += Pay(automate, inputbox, text_result, next_car)
                 if buttonExit.makeActive(pos):
                     Exit(text_result, buttonPay , buttonExit)
                     run = False
