@@ -258,6 +258,7 @@ def main():
     if click_pay == 0:
         run = False
     count_of_time = time.monotonic()
+    count_of_dot = 0
     while run:
 
         win.blit(bg, (0, 0))
@@ -265,6 +266,24 @@ def main():
         win.blit(next_car.get_car, (x, y))  # рисовка машины
         win.blit(kols[i], (x + 43 + x_kol_1, y + 56 + y_kol_1))  # рисовка 1-го колеса
         win.blit(kols[i], (x + 266 + x_kol_2, y + 56 + y_kol_2))  # рисовка 2-го колеса
+
+        print_text("Refueling", 650, 450, (255, 255, 255), 40)
+        if count_of_dot == 0:
+            print_text(".", 810, 450, (255, 255, 255), 40)
+        elif count_of_dot == 1:
+            print_text(".", 810, 450, (255, 255, 255), 40)
+            print_text(".", 820, 450, (255, 255, 255), 40)
+        elif count_of_dot == 2:
+            print_text(".", 810, 450, (255, 255, 255), 40)
+            print_text(".", 820, 450, (255, 255, 255), 40)
+            print_text(".", 830, 450, (255, 255, 255), 40)
+        else:
+            print_text(".", 810, 450, (0, 0, 0), 40)
+            print_text(".", 820, 450, (0, 0, 0), 40)
+            print_text(".", 830, 450, (0, 0, 0), 40)
+            count_of_dot = -1
+        count_of_dot += 1
+
         if check_sound_2 == True:
             gasoline_sound.play() # запускаем звук заливки бензина в бак
             check_sound_2 = False
