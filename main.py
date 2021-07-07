@@ -226,7 +226,7 @@ def main():
         pygame.display.update()
 # ______________________________________________________________________________________________________________________
 
-    automate = Automate(money=next_car.count_of_money)
+    automate = Automate()
 
     run = True
     click_pay = 0

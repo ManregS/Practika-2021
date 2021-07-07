@@ -104,10 +104,9 @@ class InputBox:
 
 
 class Automate:
-    def __init__(self, fuel_type="", liters="", money=0):
+    def __init__(self, fuel_type="", liters=""):
         self.fuel_type = fuel_type
         self.liters = liters
-        self.money = money
 
     def check(self, car: Car):
         if self.fuel_type == "":
@@ -118,11 +117,11 @@ class Automate:
             return "This fuel does not\nfit your car", 0
         if (car.count_of_gasoline + float(self.liters)) > car.max_gasoline:
             return "So many liters will\nnot fit in your tank", 0
-        if (car.count_of_gasoline * FUEL_INFO[car.fuel]) > self.money:
+        if (self.liters * FUEL_INFO[car.fuel]) > car.count_of_money:
             return "Not enough money\nto pay", 0
         else:
             car.count_of_gasoline += float(self.liters)
-            car.count_of_money = self.money - (self.liters * FUEL_INFO[car.fuel])
+            car.count_of_money -= self.liters * FUEL_INFO[car.fuel]
             return "Payment passed\nCar tank: " + str(car.count_of_gasoline) + " liters\nYour balance: " + str(car.count_of_money), 1
 
     def Clear(self):
