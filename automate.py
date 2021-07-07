@@ -36,7 +36,18 @@ class Text:
 
     def printValue(self, value):
         FONT = pg.font.SysFont("Arial", 40)
-        self.txt_surface = FONT.render(str(value), True, COLOR_BLACK)
+        if "\n" not in self.text:
+            self.txt_surface = FONT.render(str(value), True, COLOR_BLACK)
+        else:
+            value = self.text.split("\n")
+            for i in range(len(value)):
+                txt = FONT.render(value[i], True, COLOR_BLACK)
+                value[i] = txt
+                if i == 0:
+                    screen.blit(txt, (self.rect.x + (self.rect.w/2 - txt.get_width()/2), self.rect.y))
+                else:
+                    screen.blit(txt, (self.rect.x + 5, self.rect.y + ((value[i-1].get_height())*(i))))
+
 
 
 class Button:
@@ -109,9 +120,9 @@ class Automate:
         if self.fuel_type == "":
             return "Select fuel type"
         if self.fuel_type != car_fuel_type:
-            return "This fuel does not fit your car"
+            return "This fuel does not\nfit your car"
         if (car_liters + float(self.liters)) > car_liters_MAX:
-            return "So many liters will not fit in your tank"
+            return "So many liters will\nnot fit in your tank"
         if (car_liters * FUEL_INFO[car_fuel_type]) > self.money:
             return "Not enough money to pay"
         else:
@@ -127,11 +138,11 @@ def Screen():
     screen.blit(BACKGROUND, (370, 0))
     text_result.draw(screen)
     text_fuel_info.draw(screen)
-    for button in auto_list:
-        if button in auto_list[:-1]:
-            button.draw(screen, COLOR_BLACK)
+    for el in auto_list:
+        if el in auto_list[:-1]:
+            el.draw(screen, COLOR_BLACK)
         else:
-            button.draw(screen)
+            el.draw(screen)
     pg.display.update()
 
 def Pay(automate: Automate, inputbox: InputBox, text: Text, car_fuel_type, car_liters, car_liters_MAX):
@@ -149,6 +160,6 @@ inputbox = InputBox(485, 235, 430, 100)
 buttonPay = Button(665, 550, 250, 80, "Pay by card")
 buttonExit = Button(20, 700, 150, 80, "Exit")
 text_result = Text(485, 340, 430, 200)
-text_fuel_info = Text(1050, 10, 350, 350, ("Fuel Info"+"\n"+("92: " + str(FUEL_INFO["92"]))+"\n"+("95: " + str(FUEL_INFO["95"]))+"\n"+("98: " + str(FUEL_INFO["98"]))))
+text_fuel_info = Text(1050, 10, 350, 250, ("Fuel Info"+"\n"+("92: "+str(FUEL_INFO["92"]))+" rub\n"+("95: "+str(FUEL_INFO["95"]))+" rub\n"+("98: "+str(FUEL_INFO["98"]))+" rub"))
 #text_car_info = Text()
 auto_list = [button92, button95, button98, buttonPay, buttonExit, inputbox]
