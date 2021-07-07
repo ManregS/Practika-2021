@@ -154,7 +154,9 @@ def Pay(automate: Automate, inputbox: InputBox, text: Text, car: Car):
 
 def Exit(text: Text, pay: Button, exit: Button):
     text.Clear()
+    pay.color = COLOR_INACTIVE
     pay.active = False
+    exit.color = COLOR_INACTIVE
     exit.active = False
 
 button92 = Button(485, 45, 126, 100, "92")
