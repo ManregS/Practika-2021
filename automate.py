@@ -29,7 +29,10 @@ class Text:
         else:
             message = self.text.split("\n")
             for i in range(len(message)):
-                txt = FONT.render(message[i], True, COLOR_BLACK)
+                if self.text.count("\n") > 3:
+                    txt = pg.font.SysFont("Arial", 40).render(message[i], True, COLOR_BLACK)
+                else:
+                    txt = FONT.render(message[i], True, COLOR_BLACK)
                 message[i] = txt
                 if i == 0:
                     if self.text.count("\n") > 1:
@@ -120,6 +123,9 @@ class Card:
             self.active = True
             self.color = COLOR_ACTIVE
             return True
+        elif buttonPay.rect.collidepoint(pos):
+            self.active = self.active
+            self.color = self.color
         else:
             self.active = False
             self.color = COLOR_INACTIVE
@@ -164,6 +170,8 @@ def Screen(car_fuel_type, car_liters, car_liters_MAX, money):
             el.draw(screen, COLOR_BLACK)
         else:
             el.draw(screen)
+    buttonPay.color = COLOR_INACTIVE
+    buttonPay.active = False
     pg.display.update()
 
 def Pay(automate: Automate, inputbox: InputBox, text: Text, car: Car):
@@ -177,7 +185,7 @@ def Pay(automate: Automate, inputbox: InputBox, text: Text, car: Car):
     return click_pay
 
 def Exit(text: Text, pay: Button, exit: Button):
-    text.text = "Instruction\n1.Choose fuel type\n2.Enter number of liters"
+    text.text = "Instruction\n1.Choose fuel type\n2.Enter number of liters\n3.Choose your card and pay\n"
     pay.color = COLOR_INACTIVE
     pay.active = False
     exit.color = COLOR_INACTIVE
@@ -191,7 +199,7 @@ button98 = Button(789, 45, 126, 100, "98")
 inputbox = InputBox(485, 235, 430, 100)
 buttonPay = Button(665, 550, 250, 80, "Pay by card")
 buttonExit = Button(487, 550, 150, 80, "Exit")
-text_result = Text(485, 340, 430, 200, ("Instruction\n1.Choose fuel type\n2.Enter number of liters"))
+text_result = Text(485, 340, 430, 200, ("Instruction\n1.Choose fuel type\n2.Enter number of liters\n3.Choose your card and pay\n"))
 text_fuel_info = Text(1040, 10, 350, 250, ("Fuel Info\n" + ("92: " + str(FUEL_INFO["92"])) + " rub\n" + ("95: " + str(FUEL_INFO["95"])) + " rub\n" + ("98: " + str(FUEL_INFO["98"])) + " rub"))
 text_car_info = Text(10, 10, 350, 300)
 el_list = [button92, button95, button98, buttonPay, buttonExit, inputbox]

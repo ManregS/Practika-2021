@@ -244,13 +244,13 @@ def main():
                     automate.fuel_type = button95.text
                 if button98.makeActive(pos):
                     automate.fuel_type = button98.text
-                if buttonPay.makeActive(pos):
-                    click_pay += Pay(automate, inputbox, text_result, next_car)
                 if buttonExit.makeActive(pos):
                     Exit(text_result, buttonPay, buttonExit)
                     run = False
                 inputbox.makeActive(pos)
                 card.makeActive(pos)
+                if buttonPay.makeActive(pos) and card.active == True:
+                    click_pay += Pay(automate, inputbox, text_result, next_car)
             if event.type == pg.KEYDOWN:
                 inputbox.inputValue(event)
 
