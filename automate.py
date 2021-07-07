@@ -153,7 +153,7 @@ def Pay(automate: Automate, inputbox: InputBox, text: Text, car: Car):
     return click_pay
 
 def Exit(text: Text, pay: Button, exit: Button):
-    text.Clear()
+    text.text = "Instruction\n1.Choose fuel type\n2.Enter number of liters"
     pay.color = COLOR_INACTIVE
     pay.active = False
     exit.color = COLOR_INACTIVE
