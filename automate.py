@@ -1,4 +1,5 @@
 import pygame as pg
+import random
 from car import *
 
 pg.init()
@@ -103,6 +104,28 @@ class InputBox:
         self.txt_surface = FONT.render("", True, COLOR_BLACK)
 
 
+class Card:
+    def __init__(self, x, y, w, h, card):
+        self.rect = pg.Rect(x, y, w, h)
+        self.color = COLOR_INACTIVE
+        self.card = card
+        self.active = False
+    
+    def draw(self, screen):
+        pg.draw.rect(screen, self.color, self.rect, 0)
+        screen.blit(self.card, (self.rect.x + (self.rect.w / 2 - self.card.get_width() / 2), self.rect.y + (self.rect.h / 2 - self.card.get_height() / 2)))
+
+    def makeActive(self, pos):
+        if self.rect.collidepoint(pos):
+            self.active = True
+            self.color = COLOR_ACTIVE
+            return True
+        else:
+            self.active = False
+            self.color = COLOR_INACTIVE
+            return False
+
+
 class Automate:
     def __init__(self, fuel_type="", liters=""):
         self.fuel_type = fuel_type
@@ -133,6 +156,7 @@ def Screen(car_fuel_type, car_liters, car_liters_MAX, money):
     text_car_info.text = ("Car Info\n" + ("Fuel type: "+str(car_fuel_type)+"\n") + ("Tank: "+str(round(car_liters, 2))+" liters\n") + ("MAX: "+str(car_liters_MAX)+" liters\n") + ("Card: "+str(round(money, 2))+" rub"))
     screen.fill((255, 255, 255))
     screen.blit(BACKGROUND, (370, 0))
+    card.draw(screen)
     for text in text_list:
         text.draw(screen)
     for el in el_list:
@@ -159,6 +183,8 @@ def Exit(text: Text, pay: Button, exit: Button):
     exit.color = COLOR_INACTIVE
     exit.active = False
 
+cards = [pg.image.load("src\\cards\\card" + str(i) + ".png") for i in range(1, 4)]
+card = Card(10, 400, 310, 200, cards[random.randint(0, 2)])
 button92 = Button(485, 45, 126, 100, "92")
 button95 = Button(637, 45, 126, 100, "95")
 button98 = Button(789, 45, 126, 100, "98")

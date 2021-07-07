@@ -250,6 +250,7 @@ def main():
                     Exit(text_result, buttonPay, buttonExit)
                     run = False
                 inputbox.makeActive(pos)
+                card.makeActive(pos)
             if event.type == pg.KEYDOWN:
                 inputbox.inputValue(event)
 
