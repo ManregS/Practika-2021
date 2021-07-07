@@ -22,7 +22,7 @@ pygame.display.set_caption("Car Game")
 
 # ______________________________________________________________________________________________________________________
 
-def print_text(message, x, y, font_color, font_size, font_type = "Printer.ttf"):
+def print_text(message, x, y, font_color, font_size, font_type = "src\\Printer.ttf"):
     font_type = pygame.font.Font(font_type, font_size)
     text = font_type.render(message, True, font_color)
     win.blit(text, (x, y))
@@ -143,28 +143,28 @@ def main():
     ''' Объявление всех нужных переменных '''
 
     # фоновая музыка
-    pygame.mixer.music.load("fon_music_2.mp3")
+    pygame.mixer.music.load("src\\fon_music_2.mp3")
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.25)
 
     # звуковые эффекты
-    first_car_sound = pygame.mixer.Sound("first_car_sound.ogg")
-    gasoline_sound = pygame.mixer.Sound("gasoline.ogg")
-    second_car_sound = pygame.mixer.Sound("second_car_sound.ogg")
+    first_car_sound = pygame.mixer.Sound("src\\first_car_sound.ogg")
+    gasoline_sound = pygame.mixer.Sound("src\\gasoline.ogg")
+    second_car_sound = pygame.mixer.Sound("src\\second_car_sound.ogg")
 
     # задный фон
-    bg = pygame.image.load("bg.jpg")
+    bg = pygame.image.load("src\\bg.jpg")
 
     # выбор машины и колёс
     rand = random.randint(1, 2)
     rand_2 = random.randint(1, 5)
     if rand == 1:
-        image = pygame.image.load("first_car/car" + str(rand_2) + ".png")
-        kols = [pygame.image.load("first_car/kol_" + str(i) + ".png") for i in range(1, 9)]
+        image = pygame.image.load("src\\first_car\\car" + str(rand_2) + ".png")
+        kols = [pygame.image.load("src\\first_car\\kol_" + str(i) + ".png") for i in range(1, 9)]
         x_kol_1 = y_kol_1 = x_kol_2 = y_kol_2 = 0
     else:
-        image = pygame.image.load("second_car/car" + str(rand_2) + ".png")
-        kols = [pygame.image.load("second_car/kol_" + str(i) + ".png") for i in range(1, 9)]
+        image = pygame.image.load("src\\second_car\\car" + str(rand_2) + ".png")
+        kols = [pygame.image.load("src\\second_car\\kol_" + str(i) + ".png") for i in range(1, 9)]
         x_kol_1 = -7
         y_kol_1 = 8
         x_kol_2 = 2
