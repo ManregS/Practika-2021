@@ -130,7 +130,7 @@ class Automate:
 
 
 def Screen(car_fuel_type, car_liters, car_liters_MAX, money):
-    text_car_info.text = ("Car Info\n" + ("Fuel type: "+str(car_fuel_type)+"\n") + ("Tank: "+str(car_liters)+" liters\n") + ("MAX: "+str(car_liters_MAX)+" liters\n") + ("Card: "+str(money)+" rub"))
+    text_car_info.text = ("Car Info\n" + ("Fuel type: "+str(car_fuel_type)+"\n") + ("Tank: "+str(round(car_liters, 2))+" liters\n") + ("MAX: "+str(car_liters_MAX)+" liters\n") + ("Card: "+str(round(money, 2))+" rub"))
     screen.fill((255, 255, 255))
     screen.blit(BACKGROUND, (370, 0))
     for text in text_list:
