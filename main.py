@@ -1,16 +1,17 @@
 from automate import *
 
-# Параметры машины
+#--------------------Параметры машины--------------------
 car_fuel_type = "95"
 car_liters = 30
 car_liters_MAX = 80
 money = 5000
+#--------------------------------------------------------
 
-# Основная часть
+automate = Automate(money=money)
+
 run = True
 while run:
     Screen()
-    automate = Automate("", 0.0, money)
     for event in pg.event.get():
         pos = pg.mouse.get_pos()
         if event.type == pg.QUIT:
@@ -24,7 +25,6 @@ while run:
             if button98.makeActive(pos):
                 automate.fuel_type = button98.text
             if buttonPay.makeActive(pos):
-                print(automate.__dict__)
                 Pay(automate, inputbox, text_result, car_fuel_type, car_liters, car_liters_MAX)
             if buttonExit.makeActive(pos):
                 run = False
