@@ -30,24 +30,12 @@ class Text:
                 txt = FONT.render(message[i], True, COLOR_BLACK)
                 message[i] = txt
                 if i == 0:
-                    screen.blit(txt, (self.rect.x + (self.rect.w/2 - txt.get_width()/2), self.rect.y))
+                    if self.text.count("\n") > 1:
+                        screen.blit(txt, (self.rect.x + (self.rect.w/2 - txt.get_width()/2), self.rect.y))
+                    else:
+                        screen.blit(txt, (self.rect.x + 5, self.rect.y))
                 else:
-                    screen.blit(txt, (self.rect.x + 5, self.rect.y + ((message[i-1].get_height())*(i))))
-
-    def printValue(self, value):
-        FONT = pg.font.SysFont("Arial", 40)
-        if "\n" not in self.text:
-            self.txt_surface = FONT.render(str(value), True, COLOR_BLACK)
-        else:
-            value = self.text.split("\n")
-            for i in range(len(value)):
-                txt = FONT.render(value[i], True, COLOR_BLACK)
-                value[i] = txt
-                if i == 0:
-                    screen.blit(txt, (self.rect.x + (self.rect.w/2 - txt.get_width()/2), self.rect.y))
-                else:
-                    screen.blit(txt, (self.rect.x + 5, self.rect.y + ((value[i-1].get_height())*(i))))
-
+                    screen.blit(txt, (self.rect.x + 5, self.rect.y + ((message[i-1].get_height())*i)))
 
 
 class Button:
@@ -149,7 +137,7 @@ def Pay(automate: Automate, inputbox: InputBox, text: Text, car_fuel_type, car_l
     if inputbox.text != "":
         automate.liters = float(inputbox.text)
     result = automate.check(car_fuel_type, car_liters, car_liters_MAX)
-    text.printValue(result)
+    text.text = result
     inputbox.Clear()
     automate.Clear()
 
