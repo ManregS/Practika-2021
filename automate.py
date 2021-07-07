@@ -25,7 +25,8 @@ class Text:
         pg.draw.rect(screen, self.color, self.rect, 2)
 
     def printValue(self, value):
-        self.txt_surface = (FONT.render(str(value), True, COLOR_BLACK))
+        FONT = pg.font.SysFont("Arial", 40)
+        self.txt_surface = FONT.render(str(value), True, COLOR_BLACK)
 
 
 class Button:
@@ -116,7 +117,7 @@ def Screen():
     screen.blit(BACKGROUND, (370, 0))
     text_result.draw(screen)
     for button in auto_list:
-        if button == auto_list[0] or button == auto_list[1] or button == auto_list[2]:
+        if button in auto_list[:-1]:
             button.draw(screen, COLOR_BLACK)
         else:
             button.draw(screen)
@@ -135,6 +136,8 @@ button95 = Button(637, 45, 126, 100, "95")
 button98 = Button(789, 45, 126, 100, "98")
 inputbox = InputBox(485, 235, 430, 100)
 buttonPay = Button(665, 545, 250, 80, "Pay by card")
-buttonExit = Button(10, 690, 150, 100, "Exit")
+buttonExit = Button(20, 700, 150, 80, "Exit")
 text_result = Text(485, 340, 430, 200)
+#text_fuel_info = Text()
+#text_car_info = Text()
 auto_list = [button92, button95, button98, buttonPay, buttonExit, inputbox]
