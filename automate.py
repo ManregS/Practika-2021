@@ -120,9 +120,9 @@ class Automate:
         if (self.liters * FUEL_INFO[car.fuel]) > car.count_of_money:
             return "Not enough money\nto pay", 0
         else:
-            car.count_of_gasoline += round(float(self.liters), 2)
-            car.count_of_money -= round(self.liters * FUEL_INFO[car.fuel], 2)
-            return "Payment passed\nCar tank: " + str(car.count_of_gasoline) + " liters\nYour balance: " + str(car.count_of_money), 1
+            car.count_of_gasoline += float(self.liters)
+            car.count_of_money -= self.liters * FUEL_INFO[car.fuel]
+            return "Payment passed\nCar tank: " + str(round(car.count_of_gasoline, 2)) + " liters\nYour balance: " + str(round(car.count_of_money, 2)), 1
 
     def Clear(self):
         self.fuel_type = ""
