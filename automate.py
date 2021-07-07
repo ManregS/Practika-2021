@@ -20,13 +20,19 @@ class Text:
         self.text = text
         self.txt_surface = FONT.render(self.text, True, COLOR_BLACK)
 
-    def draw(self, screen, outline=True):
-        screen.blit(self.txt_surface, (self.rect.x + (self.rect.w/2 - self.txt_surface.get_width()/2), self.rect.y + (self.rect.h/2 - self.txt_surface.get_height()/2)))
-        if outline:
-            pg.draw.rect(screen, outline, self.rect, 2)
+    def draw(self, screen):
+        pg.draw.rect(screen, self.color, self.rect, 2)
+        if "\n" not in self.text:
+            screen.blit(self.txt_surface, (self.rect.x + (self.rect.w/2 - self.txt_surface.get_width()/2), self.rect.y + (self.rect.h/2 - self.txt_surface.get_height()/2)))
         else:
-            FONT = pg.font.SysFont("Arial", 35)
-            self.txt_surface = FONT.render(self.text, True, COLOR_BLACK)
+            message = self.text.split("\n")
+            for i in range(len(message)):
+                txt = FONT.render(message[i], True, COLOR_BLACK)
+                message[i] = txt
+                if i == 0:
+                    screen.blit(txt, (self.rect.x + (self.rect.w/2 - txt.get_width()/2), self.rect.y))
+                else:
+                    screen.blit(txt, (self.rect.x + 5, self.rect.y + ((message[i-1].get_height())*(i))))
 
     def printValue(self, value):
         FONT = pg.font.SysFont("Arial", 40)
@@ -120,7 +126,7 @@ def Screen():
     screen.fill((255, 255, 255))
     screen.blit(BACKGROUND, (370, 0))
     text_result.draw(screen)
-    #text_fuel_info.draw(screen)
+    text_fuel_info.draw(screen)
     for button in auto_list:
         if button in auto_list[:-1]:
             button.draw(screen, COLOR_BLACK)
@@ -143,6 +149,6 @@ inputbox = InputBox(485, 235, 430, 100)
 buttonPay = Button(665, 550, 250, 80, "Pay by card")
 buttonExit = Button(20, 700, 150, 80, "Exit")
 text_result = Text(485, 340, 430, 200)
-#text_fuel_info = Text(1050, 10, 350, 350, ["Fuel Info", ("92: " + str(FUEL_INFO["92"])), ("95: " + str(FUEL_INFO["95"])), ("98: " + str(FUEL_INFO["98"]))])
+text_fuel_info = Text(1050, 10, 350, 350, ("Fuel Info"+"\n"+("92: " + str(FUEL_INFO["92"]))+"\n"+("95: " + str(FUEL_INFO["95"]))+"\n"+("98: " + str(FUEL_INFO["98"]))))
 #text_car_info = Text()
 auto_list = [button92, button95, button98, buttonPay, buttonExit, inputbox]
