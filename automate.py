@@ -112,7 +112,7 @@ class Automate:
         if (car_liters + float(self.liters)) > car_liters_MAX:
             return "So many liters will\nnot fit in your tank"
         if (car_liters * FUEL_INFO[car_fuel_type]) > self.money:
-            return "Not enough money to pay"
+            return "Not enough money\nto pay"
         else:
             return "Payment passed\nCar tank: " + str(car_liters + float(self.liters)) + " liters\nYour balance: " + str(self.money - (self.liters * FUEL_INFO[car_fuel_type]))
     
