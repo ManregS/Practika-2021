@@ -192,7 +192,7 @@ def Exit(text: Text, pay: Button, exit: Button):
     exit.active = False
 
 cards = [pg.image.load("src\\cards\\card" + str(i) + ".png") for i in range(1, 4)]
-card = Card(10, 400, 310, 200, cards[random.randint(0, 2)])
+card = Card(10, 300, 310, 200, cards[random.randint(0, 2)])
 button92 = Button(485, 45, 126, 100, "92")
 button95 = Button(637, 45, 126, 100, "95")
 button98 = Button(789, 45, 126, 100, "98")
@@ -201,6 +201,6 @@ buttonPay = Button(665, 550, 250, 80, "Pay by card")
 buttonExit = Button(487, 550, 150, 80, "Exit")
 text_result = Text(485, 340, 430, 200, ("Instruction\n1.Choose fuel type\n2.Enter number of liters\n3.Choose your card and pay\n"))
 text_fuel_info = Text(1040, 10, 350, 250, ("Fuel Info\n" + ("92: " + str(FUEL_INFO["92"])) + " rub\n" + ("95: " + str(FUEL_INFO["95"])) + " rub\n" + ("98: " + str(FUEL_INFO["98"])) + " rub"))
-text_car_info = Text(10, 10, 350, 300)
+text_car_info = Text(10, 10, 350, 250)
 el_list = [button92, button95, button98, buttonPay, buttonExit, inputbox]
 text_list = [text_result, text_fuel_info, text_car_info]

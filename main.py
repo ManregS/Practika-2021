@@ -251,6 +251,8 @@ def main():
                 card.makeActive(pos)
                 if buttonPay.makeActive(pos) and card.active == True:
                     click_pay += Pay(automate, inputbox, text_result, next_car)
+                elif buttonPay.makeActive(pos) and card.active == False:
+                    text_result.text = "You need to choose a\ncard for use pay button"
             if event.type == pg.KEYDOWN:
                 inputbox.inputValue(event)
 
