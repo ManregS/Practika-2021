@@ -55,8 +55,8 @@ class Button:
     def makeActive(self, pos):
         if self.rect.collidepoint(pos):
             self.active = True
-            for button in auto_list:
-                button.color = COLOR_INACTIVE
+            for el in el_list:
+                el.color = COLOR_INACTIVE
             self.color = COLOR_ACTIVE
             return True
         return False
@@ -121,13 +121,14 @@ class Automate:
         self.liters = ""
 
 
-def Screen():
+def Screen(car_fuel_type, car_liters, car_liters_MAX):
+    text_car_info.text = ("Car Info\n"+("Fuel type: "+str(car_fuel_type))+"\n"+("Tank: "+str(car_liters))+" liters\n"+("MAX: "+str(car_liters_MAX))+" liters")
     screen.fill((255, 255, 255))
     screen.blit(BACKGROUND, (370, 0))
-    text_result.draw(screen)
-    text_fuel_info.draw(screen)
-    for el in auto_list:
-        if el in auto_list[:-1]:
+    for text in text_list:
+        text.draw(screen)
+    for el in el_list:
+        if el in el_list[:-1]:
             el.draw(screen, COLOR_BLACK)
         else:
             el.draw(screen)
@@ -148,6 +149,7 @@ inputbox = InputBox(485, 235, 430, 100)
 buttonPay = Button(665, 550, 250, 80, "Pay by card")
 buttonExit = Button(20, 700, 150, 80, "Exit")
 text_result = Text(485, 340, 430, 200)
-text_fuel_info = Text(1050, 10, 350, 250, ("Fuel Info"+"\n"+("92: "+str(FUEL_INFO["92"]))+" rub\n"+("95: "+str(FUEL_INFO["95"]))+" rub\n"+("98: "+str(FUEL_INFO["98"]))+" rub"))
-#text_car_info = Text()
-auto_list = [button92, button95, button98, buttonPay, buttonExit, inputbox]
+text_fuel_info = Text(1040, 10, 350, 250, ("Fuel Info\n"+("92: "+str(FUEL_INFO["92"]))+" rub\n"+("95: "+str(FUEL_INFO["95"]))+" rub\n"+("98: "+str(FUEL_INFO["98"]))+" rub"))
+text_car_info = Text(10, 10, 350, 250)
+el_list = [button92, button95, button98, buttonPay, buttonExit, inputbox]
+text_list = [text_result, text_fuel_info, text_car_info]

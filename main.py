@@ -11,7 +11,7 @@ automate = Automate(money=money)
 
 run = True
 while run:
-    Screen()
+    Screen(car_fuel_type, car_liters, car_liters_MAX)
     for event in pg.event.get():
         pos = pg.mouse.get_pos()
         if event.type == pg.QUIT:
