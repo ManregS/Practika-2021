@@ -2,6 +2,7 @@ import pygame as pg
 
 pg.init()
 screen = pg.display.set_mode((1400, 800))
+BACKGROUND = pg.image.load("src\\Автомат.png")
 COLOR_INACTIVE = pg.Color('green')
 COLOR_ACTIVE = pg.Color('red')
 COLOR_BLACK = pg.Color('black')
@@ -35,7 +36,9 @@ class Button:
         self.txt_surface = FONT.render(self.text, True, COLOR_BLACK)
         self.active = False
 
-    def draw(self, screen):
+    def draw(self, screen, outline=None):
+        if outline:
+            pg.draw.rect(screen, outline, (self.rect.x-2, self.rect.y-2, self.rect.width+4, self.rect.height+4), 0)
         pg.draw.rect(screen, self.color, self.rect, 0)
         screen.blit(self.txt_surface, (self.rect.x + (self.rect.w/2 - self.txt_surface.get_width()/2), self.rect.y + (self.rect.h/2 - self.txt_surface.get_height()/2)))
 
@@ -110,10 +113,13 @@ class Automate:
 
 def Screen():
     screen.fill((255, 255, 255))
-    bg.draw(screen)
+    screen.blit(BACKGROUND, (370, 0))
     text_result.draw(screen)
     for button in auto_list:
-        button.draw(screen)
+        if button == auto_list[0] or button == auto_list[1] or button == auto_list[2]:
+            button.draw(screen, COLOR_BLACK)
+        else:
+            button.draw(screen)
     pg.display.update()
 
 def Pay(automate: Automate, inputbox: InputBox, text: Text, car_fuel_type, car_liters, car_liters_MAX):
@@ -124,12 +130,11 @@ def Pay(automate: Automate, inputbox: InputBox, text: Text, car_fuel_type, car_l
     inputbox.Clear()
     automate.Clear()
 
-button92 = Button(450, 10, 150, 100, "92")
-button95 = Button(625, 10, 150, 100, "95")
-button98 = Button(800, 10, 150, 100, "98")
-inputbox = InputBox(450, 135, 500, 100)
-buttonPay = Button(700, 485, 250, 100, "Pay by card")
+button92 = Button(485, 45, 126, 100, "92")
+button95 = Button(637, 45, 126, 100, "95")
+button98 = Button(789, 45, 126, 100, "98")
+inputbox = InputBox(485, 235, 430, 100)
+buttonPay = Button(665, 545, 250, 80, "Pay by card")
 buttonExit = Button(10, 690, 150, 100, "Exit")
-text_result = Text(450, 260, 500, 200)
-bg = Text(425, 0, 550, 790)
+text_result = Text(485, 340, 430, 200)
 auto_list = [button92, button95, button98, buttonPay, buttonExit, inputbox]
