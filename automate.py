@@ -20,9 +20,13 @@ class Text:
         self.text = text
         self.txt_surface = FONT.render(self.text, True, COLOR_BLACK)
 
-    def draw(self, screen):
+    def draw(self, screen, outline=True):
         screen.blit(self.txt_surface, (self.rect.x + (self.rect.w/2 - self.txt_surface.get_width()/2), self.rect.y + (self.rect.h/2 - self.txt_surface.get_height()/2)))
-        pg.draw.rect(screen, self.color, self.rect, 2)
+        if outline:
+            pg.draw.rect(screen, outline, self.rect, 2)
+        else:
+            FONT = pg.font.SysFont("Arial", 35)
+            self.txt_surface = FONT.render(self.text, True, COLOR_BLACK)
 
     def printValue(self, value):
         FONT = pg.font.SysFont("Arial", 40)
@@ -116,6 +120,7 @@ def Screen():
     screen.fill((255, 255, 255))
     screen.blit(BACKGROUND, (370, 0))
     text_result.draw(screen)
+    text_fuel_info.draw(screen, False)
     for button in auto_list:
         if button in auto_list[:-1]:
             button.draw(screen, COLOR_BLACK)
@@ -135,9 +140,9 @@ button92 = Button(485, 45, 126, 100, "92")
 button95 = Button(637, 45, 126, 100, "95")
 button98 = Button(789, 45, 126, 100, "98")
 inputbox = InputBox(485, 235, 430, 100)
-buttonPay = Button(665, 545, 250, 80, "Pay by card")
+buttonPay = Button(665, 550, 250, 80, "Pay by card")
 buttonExit = Button(20, 700, 150, 80, "Exit")
 text_result = Text(485, 340, 430, 200)
-#text_fuel_info = Text()
+text_fuel_info = Text(1200, 10, 200, 200, str(FUEL_INFO))
 #text_car_info = Text()
 auto_list = [button92, button95, button98, buttonPay, buttonExit, inputbox]
