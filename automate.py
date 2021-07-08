@@ -63,9 +63,10 @@ class Button:
 
     def makeActive(self, pos):
         if self.rect.collidepoint(pos):
-            self.active = True
             for el in el_list:
+                el.active = False
                 el.color = COLOR_INACTIVE
+            self.active = True
             self.color = COLOR_ACTIVE
             return True
         return False
