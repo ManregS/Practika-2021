@@ -122,7 +122,7 @@ def main():
 
         if next_button.click_on == True:
             if check_car_position == True:
-                next_car = car.Car(random.randint(0, 2500), random.randint(60, 120), random.randint(5, 50), image, 20, 350, array_fuel[random.randint(0, 2)]) # картинка машины
+                next_car = car.Car(random.randint(0, 2500), random.randint(60, 120), random.randint(5, 50), image, 20, 350, array_fuel[random.randint(0, 2)])
                 check_car_position = False
 
             if check_sound_1 == True:
